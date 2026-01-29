@@ -84,3 +84,6 @@ button {
   color: #000;
   font-weight: bold;
 }
+body {
+  background: red;
+}
