@@ -1,0 +1,15 @@
+{
+  "name": "ai-chatbot-web",
+  "version": "1.0.0",
+  "description": "AI chatbot web app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.18.2",
+    "groq-sdk": "^0.7.0"
+  }
+}
