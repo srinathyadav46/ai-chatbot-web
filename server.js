@@ -33,7 +33,8 @@ app.post("/chat", async (req, res) => {
     res.json({ reply: "Groq backend error." });
   }
 });
+const PORT = process.env.PORT || 3000;
 
-app.listen(3000, () => {
-  console.log("Groq AI server running at http://localhost:3000");
+app.listen(PORT, () => {
+  console.log(`Groq AI server running on port ${PORT}`);
 });
