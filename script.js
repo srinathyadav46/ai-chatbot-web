@@ -19,7 +19,7 @@ function addMessage(text, sender) {
 }
 
 
-// ================= TYPING ANIMATION =================
+// ================= TYPING =================
 function addTyping() {
   const typing = document.createElement("div");
   typing.className = "msg bot typing";
@@ -32,12 +32,35 @@ function addTyping() {
 }
 
 
+// ================= SAVE HISTORY =================
+function saveHistory() {
+  localStorage.setItem("chatHistory", chatBox.innerHTML);
+}
+
+
+// ================= LOAD HISTORY =================
+function loadHistory() {
+  const history = localStorage.getItem("chatHistory");
+  if (history) chatBox.innerHTML = history;
+}
+
+
+// ================= CLEAR CHAT =================
+function clearChat() {
+  chatBox.innerHTML = "";
+  localStorage.removeItem("chatHistory");
+}
+
+
 // ================= SEND MESSAGE =================
 async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
+  // show user message
   addMessage(message, "user");
+  saveHistory();
+
   input.value = "";
 
   const typing = addTyping();
@@ -52,8 +75,8 @@ async function sendMessage() {
     const data = await res.json();
 
     typing.remove();
-    addMessage(data.reply, "bot");
 
+    addMessage(data.reply, "bot");
     saveHistory();
 
   } catch (err) {
@@ -62,31 +85,15 @@ async function sendMessage() {
 }
 
 
-// ================= CLEAR CHAT =================
-function clearChat() {
-  chatBox.innerHTML = "";
-  localStorage.removeItem("chatHistory");
-}
-
-
-// ================= EVENTS =================
-sendBtn.onclick = sendMessage;
+// ================= EVENTS (MORE STABLE) =================
+sendBtn.addEventListener("click", sendMessage);
 
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendMessage();
 });
 
-clearBtn.onclick = clearChat;   // ⭐ THIS WAS MISSING
+clearBtn.addEventListener("click", clearChat);
 
 
-// ================= SAVE HISTORY =================
-function saveHistory() {
-  localStorage.setItem("chatHistory", chatBox.innerHTML);
-}
-
-
-// ================= LOAD HISTORY =================
-window.onload = () => {
-  const history = localStorage.getItem("chatHistory");
-  if (history) chatBox.innerHTML = history;
-};
+// ================= INIT =================
+window.onload = loadHistory;
