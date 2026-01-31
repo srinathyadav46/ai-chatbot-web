@@ -74,7 +74,7 @@ body {
   padding: 12px;
   border-radius: 15px;
 
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.052);
 
   scroll-behavior: smooth;
 }
@@ -179,9 +179,14 @@ body {
 
   pointer-events: none;
 }
+/* ================= FOOTER CREDIT ================= */
 .credit {
   text-align: center;
   font-size: 12px;
-  opacity: 0.6;
-  margin-top: 6px;
+  margin-top: 8px;
+
+  color: rgba(255,255,255,0.65);
+
+  flex-shrink: 0;   /* keeps it visible */
+  user-select: none;
 }
