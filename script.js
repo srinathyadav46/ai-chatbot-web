@@ -1,20 +1,68 @@
+const input = document.getElementById("user-input");
+const sendBtn = document.getElementById("send-btn");
+const chatBox = document.getElementById("chat-box");
+
+const API_URL = "/chat";   // IMPORTANT for Render
+
+// add message
+function addMessage(text, sender) {
+  const msg = document.createElement("div");
+  msg.className = `msg ${sender}`;
+  msg.innerText = text;
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return msg;
+}
+
+// typing dots animation
+function addTyping() {
+  const typing = document.createElement("div");
+  typing.className = "msg bot typing";
+  typing.innerText = "Typing...";
+  chatBox.appendChild(typing);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return typing;
+}
+
 async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatBox = document.getElementById("chatBox");
+  const message = input.value.trim();
+  if (!message) return;
 
-  const text = input.value.trim();
-  if (!text) return;
-
-  chatBox.innerHTML += `<div class="user">${text}</div>`;
+  addMessage(message, "user");
   input.value = "";
 
-  const response = await fetch("/chat", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: text })
-  });
+  const typing = addTyping();
 
-  const data = await response.json();
-  chatBox.innerHTML += `<div class="bot">${data.reply}</div>`;
-  chatBox.scrollTop = chatBox.scrollHeight;
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message })
+    });
+
+    const data = await res.json();
+
+    typing.remove();
+    addMessage(data.reply, "bot");
+
+    saveHistory();
+
+  } catch (err) {
+    typing.innerText = "Server waking up... please wait ⏳";
+  }
 }
+
+sendBtn.onclick = sendMessage;
+input.addEventListener("keypress", e => {
+  if (e.key === "Enter") sendMessage();
+});
+// save chat
+function saveHistory() {
+  localStorage.setItem("chatHistory", chatBox.innerHTML);
+}
+
+// load chat
+window.onload = () => {
+  const history = localStorage.getItem("chatHistory");
+  if (history) chatBox.innerHTML = history;
+};
