@@ -5,8 +5,6 @@ const clearBtn = document.getElementById("clear-btn");
 
 const API_URL = "/chat";
 
-
-// ================= ADD MESSAGE =================
 function addMessage(text, sender) {
   const msg = document.createElement("div");
   msg.className = `msg ${sender}`;
@@ -18,8 +16,6 @@ function addMessage(text, sender) {
   return msg;
 }
 
-
-// ================= TYPING =================
 function addTyping() {
   const typing = document.createElement("div");
   typing.className = "msg bot typing";
@@ -31,33 +27,24 @@ function addTyping() {
   return typing;
 }
 
-
-// ================= SAVE HISTORY =================
 function saveHistory() {
   localStorage.setItem("chatHistory", chatBox.innerHTML);
 }
 
-
-// ================= LOAD HISTORY =================
 function loadHistory() {
   const history = localStorage.getItem("chatHistory");
   if (history) chatBox.innerHTML = history;
 }
 
-
-// ================= CLEAR CHAT =================
 function clearChat() {
   chatBox.innerHTML = "";
   localStorage.removeItem("chatHistory");
 }
 
-
-// ================= SEND MESSAGE =================
 async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  // show user message
   addMessage(message, "user");
   saveHistory();
 
@@ -84,8 +71,6 @@ async function sendMessage() {
   }
 }
 
-
-// ================= EVENTS (MORE STABLE) =================
 sendBtn.addEventListener("click", sendMessage);
 
 input.addEventListener("keydown", (e) => {
@@ -93,7 +78,4 @@ input.addEventListener("keydown", (e) => {
 });
 
 clearBtn.addEventListener("click", clearChat);
-
-
-// ================= INIT =================
 window.onload = loadHistory;
