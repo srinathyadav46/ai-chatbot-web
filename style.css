@@ -1,20 +1,16 @@
-/* ================= RESET ================= */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: "Segoe UI", sans-serif;
 }
-
-
-/* ================= BACKGROUND ================= */
 body {
   height: 100vh;
   margin: 0;
 
   background-image:
     linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
-    url("/assets/background.jpg");   /* safer for Render */
+    url("/assets/background.jpg");
 
   background-size: cover;
   background-position: center;
@@ -25,9 +21,6 @@ body {
   justify-content: center;
   align-items: center;
 }
-
-
-/* ================= CHAT CONTAINER (GLASS) ================= */
 .chat-container {
   position: relative;
 
@@ -54,21 +47,15 @@ body {
 
   color: white;
 
-  overflow: hidden; /* keeps layout fixed */
+  overflow: hidden;
 }
-
-
-/* ================= TITLE ================= */
 .chat-container h2 {
   text-align: center;
   margin-bottom: 12px;
 }
-
-
-/* ================= CHAT AREA ================= */
 #chat-box {
   flex: 1;
-  min-height: 0;            /* ⭐ fixes scroll bug */
+  min-height: 0;
   overflow-y: auto;
 
   padding: 12px;
@@ -78,9 +65,6 @@ body {
 
   scroll-behavior: smooth;
 }
-
-
-/* ================= MESSAGES ================= */
 .msg {
   max-width: 75%;
   padding: 10px 14px;
@@ -89,7 +73,7 @@ body {
   border-radius: 14px;
   font-size: 14px;
 
-  word-break: break-word;   /* ⭐ prevents overflow */
+  word-break: break-word;
   overflow-wrap: break-word;
   white-space: pre-wrap;
 
@@ -111,15 +95,12 @@ body {
   opacity: 0.6;
   font-style: italic;
 }
-
-
-/* ================= INPUT AREA ================= */
 .input-area {
   display: flex;
   gap: 10px;
   margin-top: 10px;
 
-  flex-shrink: 0; /* ⭐ prevents disappearing */
+  flex-shrink: 0;
 }
 
 #user-input {
@@ -129,9 +110,6 @@ body {
   border: none;
   outline: none;
 }
-
-
-/* ================= BUTTON ================= */
 #send-btn {
   padding: 12px 18px;
   border-radius: 12px;
@@ -148,9 +126,6 @@ body {
   transform: scale(1.05);
   box-shadow: 0 0 12px #00e5ff;
 }
-
-
-/* ================= MESSAGE ANIMATION ================= */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -162,8 +137,6 @@ body {
   }
 }
 
-
-/* ================= GLASS SHINE EFFECT ================= */
 .chat-container::before {
   content: "";
   position: absolute;
@@ -179,7 +152,6 @@ body {
 
   pointer-events: none;
 }
-/* ================= FOOTER CREDIT ================= */
 .credit {
   text-align: center;
   font-size: 12px;
@@ -187,6 +159,6 @@ body {
 
   color: rgba(255,255,255,0.65);
 
-  flex-shrink: 0;   /* keeps it visible */
+  flex-shrink: 0;
   user-select: none;
 }
